@@ -1,3 +1,10 @@
+Forked to add Optional NodeId to the created Topic and Payload.
+Changed default Discovery Prefix from "ha" to "homeassistant" to instantly work with OpenHab AutoDiscovery.
+
+Original Code from plapointe6.
+
+##############################
+
 # HAMqttDevice
 
 A simple library that allow an easy json generation of MQTT Discovery payloads intended to be sent to Home Assistant.
