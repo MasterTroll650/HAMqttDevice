@@ -3,17 +3,26 @@
 HAMqttDevice::HAMqttDevice(
     const String &name,
     const DeviceType type,
+	const String &nodeId,
     const String &haMQTTPrefix) : _name(name),
-                                  _type(type)
+                                  _type(type),
+								  _nodeid(nodeId)
 {
     // Id = name to lower case replacing spaces by underscore (ex: name="Kitchen Light" -> id="kitchen_light")
     _identifier = name;
     _identifier.replace(' ', '_');
     _identifier.toLowerCase();
+    // nodeId = name to lower case replacing spaces by underscore (ex: name="Kitchen Light" -> id="kitchen_light")
+    _nodeid = nodeId;
+    _nodeid.replace(' ', '_');
+    _nodeid.toLowerCase();
 
     // Define the MQTT topic of the device
-    _topic = haMQTTPrefix + '/' + deviceTypeToStr(_type) + '/' + _identifier;
-
+	if (_nodeid != "") {
+		_topic = haMQTTPrefix + '/' + deviceTypeToStr(_type) + '/' + _nodeid + '/' + _identifier;
+	} else {
+		_topic = haMQTTPrefix + '/' + deviceTypeToStr(_type) + '/' + _identifier;
+	}
     // Preconfigure mandatory config vars that we already know
     addConfigVar("~", _topic);
     addConfigVar("name", _name);
